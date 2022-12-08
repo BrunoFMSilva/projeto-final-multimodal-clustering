@@ -1,23 +1,23 @@
 version: "3.9"
 
-#x-txt-encoder:
-#  &custom_txt_encoder
-#  restart: "no"
-#  command: txt_encoder
-#  env_file:
-#    - .env
-#  build:
-#    context: .
-#    dockerfile: Dockerfile
-#  volumes:
-#    - .:/opt/
-#  networks:
-#    - default
-#  dns:
-#    - 8.8.8.8
-#    - 8.8.4.4
-#  depends_on:
-#    - redis
+x-txt-encoder:
+  &custom_txt_encoder
+  restart: "no"
+  command: txt_encoder
+  env_file:
+    - .env
+  build:
+    context: .
+    dockerfile: Dockerfile
+  volumes:
+    - .:/opt/
+  networks:
+    - default
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4
+  depends_on:
+    - redis
 
 #x-img-encoder:
 #  &custom_img_encoder
@@ -45,21 +45,21 @@ services:
       - "6379:6379"
     command: redis-server --maxmemory 16gb --maxmemory-policy allkeys-lru --loadmodule /usr/lib/redis/modules/redisearch.so
 
-#  jupyter:
-#    image: jupyter/datascience-notebook:notebook-6.5.2
-#    ports:
-#      - "8889:8889"
-#    volumes:
-#      - .:/home/jovyan/multimodal-clustering
-#    command: jupyter lab --no-browser --port=8889
+  jupyter:
+    image: jupyter/datascience-notebook:notebook-6.5.2
+    ports:
+      - "8889:8889"
+    volumes:
+      - .:/home/jovyan/multimodal-clustering
+    command: jupyter lab --no-browser --port=8889
 
-#  txt_encoder_0:
-#    <<: *custom_txt_encoder
-#    ports:
-#      - "80:80"
-#      - "443:443"
-#    environment:
-#      - QUEUE_ID=0
+  txt_encoder_0:
+    <<: *custom_txt_encoder
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - QUEUE_ID=0
 
 #  txt_encoder_1:
 #    <<: *custom_txt_encoder
@@ -101,30 +101,30 @@ services:
 #    environment:
 #      - QUEUE_ID=2
 #
-#  api:
-#    restart: "no"
-#    command: api
-#    env_file:
-#      - .env
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    volumes:
-#      - .:/opt/
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - default
-#    dns:
-#      - 8.8.8.8
-#      - 8.8.4.4
-#    depends_on:
-#      - redis
-#      - txt_encoder_0
+  api:
+    restart: "no"
+    command: api
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/opt/
+    ports:
+      - "8080:8080"
+    networks:
+      - default
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    depends_on:
+      - redis
+      - txt_encoder_0
 #      - txt_encoder_1
 #      - txt_encoder_2
 #      - img_encoder_0
 #      - img_encoder_1
 #      - img_encoder_2
-#    stdin_open: true
-#    tty: true
+    stdin_open: true
+    tty: true
