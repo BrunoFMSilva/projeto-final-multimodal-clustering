@@ -11,7 +11,13 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-# Joga na fila os dados carregados pelo usuario - muito rapido - nao indexa
+
+"""
+This function gets the data inserted by the user and organizes that data in a queue, not indexing the data, only 
+inserting it in redis using PUB/SUB. It is an extremely fast process. Data inserted here is manipulated later in
+the application 
+@author Bruno Francisco
+"""
 @router.post("/")
 def index(file: bytes = File(...), skip: int = 0):
     try:

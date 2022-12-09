@@ -4,7 +4,7 @@ import app.shared_context as sc
 from app.helper import create_index
 
 """
-Function that describes the execution of the parallel service that executes with the main application. The text encoder
+Function that describes the parallel service that executes with the main application. The text encoder
 gets the data inserter by the user and sends it to the word model, handeling its size and converting it to a json file
 containing a vector with 768 positions per record. After that it creates the index in Redis
 @author Bruno Francisco
