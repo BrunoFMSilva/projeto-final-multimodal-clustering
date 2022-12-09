@@ -170,6 +170,9 @@ app/output/*
 app/dl_models/*
 !app/dl_models/.keep
 
+tests/dl_models/*
+!test/dl_models/.keep
+
 app/notebooks/*
 !app/notebooks/.keep
 
