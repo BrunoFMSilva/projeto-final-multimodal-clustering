@@ -10,9 +10,11 @@ from fastapi.logger import logger
 from torchvision import transforms
 from sentence_transformers import SentenceTransformer
 
+"""
+This module presents the global variables of the system in an horizontal plane. The constants are presented below 
+@author Bruno Francisco
+"""
 
-# Possui as variaveis globais do sistema - camada horizontal
-# constants
 REDIS_HOST = "redis"
 REDIS_PORT = 6379
 
@@ -51,6 +53,10 @@ model_txt = None
 model_img = None
 
 
+"""
+Function that creates the connection with Redis 
+@author Bruno Francisco
+"""
 def start_queueing(manually=False):
     redis_client = redis.Redis(
         host=REDIS_HOST if not manually else 'localhost',
@@ -59,6 +65,10 @@ def start_queueing(manually=False):
     return redis_client
 
 
+"""
+Function that enable logs in the API 
+@author Bruno Francisco
+"""
 def start_api_logging():
     uvicorn_logger = logging.getLogger("uvicorn.access")
     logger.handlers = uvicorn_logger.handlers
@@ -67,7 +77,10 @@ def start_api_logging():
     logger.setLevel(uvicorn_logger.level)
     return logger
 
-
+"""
+Function that enable logs in the encoder 
+@author Bruno Francisco
+"""
 def start_encoder_logging():
     encoder_logger = logging.getLogger()
     encoder_logger.setLevel(logging.INFO)
@@ -79,6 +92,10 @@ def start_encoder_logging():
     return encoder_logger
 
 
+"""
+Function that reads the tensor model used to handle the image data entered by the user  
+@author Bruno Francisco
+"""
 def encode_image(img_path: Path = None, input_image: Image = None):
     global model_img
     # lazy loading
@@ -107,6 +124,10 @@ def encode_image(img_path: Path = None, input_image: Image = None):
     return embeddings
 
 
+"""
+Function that reads the model used to handle the text data entered by the user  
+@author Bruno Francisco
+"""
 def load_txt_model():
     global model_txt
     # lazy loading

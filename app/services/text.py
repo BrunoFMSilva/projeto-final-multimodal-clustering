@@ -3,10 +3,12 @@ from time import sleep
 import app.shared_context as sc
 from app.helper import create_index
 
-# Servico paralelo que fica rodando - pega a mensagem - com o modelo de texto instanciado - faz tratamento d tamanho
-# 512 e manda pro modelo e o modelo devolve um vetor d 768 organiza json - armazena como banco d dados no redis
-# - deixa d guardar sentenca e guarda embedding - primeira passada armazena o dado no redis e a segunda cria o iindice
-# em cima do campo embedding
+"""
+Function that describes the execution of the parallel service that executes with the main application. The text encoder
+gets the data inserter by the user and sends it to the word model, handeling its size and converting it to a json file
+containing a vector with 768 positions per record. After that it creates the index in Redis
+@author Bruno Francisco
+"""
 def run():
     queue_id = int(sys.argv[1]) if len(sys.argv) > 1 else 0
     queue_name = f"{sc.QUEUE_TXT}_{queue_id}"

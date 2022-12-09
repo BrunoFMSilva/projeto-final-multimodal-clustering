@@ -5,11 +5,15 @@ import app.shared_context as sc
 from app.helper import create_index, timeit
 from redis.commands.search.query import Query
 
-# faz a analise de performace
+
 def conv(col):
     return literal_eval(col[1:-1])
 
 
+"""
+Function that checks the performance in loading files in Redis 
+@author Bruno Francisco
+"""
 def to_redis(key_prefix="txt"):
     output_path = Path(__file__).parent.parent / "output"
     # with open(output_path / "sample.csv", "r") as file:
@@ -35,6 +39,10 @@ def to_redis(key_prefix="txt"):
                 )
 
 
+"""
+Function that checks the performance in renaming the keys in Redis 
+@author Bruno Francisco
+"""
 @timeit
 def rename(pattern="txt:*", prefix="txt::"):
     keys = sc.api_redis_cli.keys(pattern)
@@ -42,7 +50,6 @@ def rename(pattern="txt:*", prefix="txt::"):
         if str(key).count(":") == 2:
             sc.api_logger.info(f"skipping key {str(key)}")
             continue
-        # FIXME: this selection made on list must be dynamic
         new_key = int(key[4:].decode())
         obj = sc.api_redis_cli.hgetall(key)
         sc.api_redis_cli.hset(
@@ -56,6 +63,10 @@ def rename(pattern="txt:*", prefix="txt::"):
         sc.api_redis_cli.delete(key)
 
 
+"""
+Function that checks the performance in deleting keys from Redis 
+@author Bruno Francisco
+"""
 @timeit
 def delete(pattern="txt:*"):
     keys = sc.api_redis_cli.keys(pattern)
@@ -65,6 +76,10 @@ def delete(pattern="txt:*"):
     sc.api_logger.info(f"{len(keys)} keys dropped")
 
 
+"""
+Function that checks the performance in the process of creating indexes using HNSW 
+@author Bruno Francisco
+"""
 @timeit
 def run(pattern="txt:*", only_index=False):
     if not only_index:
@@ -108,7 +123,10 @@ def run(pattern="txt:*", only_index=False):
             prefix=f"txt:{bucket}"
         )
 
-
+"""
+Function that checks the performance in retrieving files from a keyword-search query 
+@author Bruno Francisco
+"""
 @timeit
 def query_index(index_name, kws, k):
     query_vector = sc.load_txt_model().encode(kws).astype(sc.TEXT_EMBEDDING_TYPE).tobytes()
@@ -121,6 +139,11 @@ def query_index(index_name, kws, k):
     return results
 
 
+"""
+Function that checks the performance in retrieving files from a keyword-search query using multiple index types  - HNSW
+and Flat
+@author Bruno Francisco
+"""
 @timeit
 def query(k=20):
     output_path = Path(__file__).parent.parent / "output"
@@ -140,6 +163,10 @@ def query(k=20):
     return analysis
 
 
+"""
+Function that calculates precision and recall using multiple index types  - HNSW and Flat
+@author Bruno Francisco
+"""
 def calculate_metrics(results: dict):
     K = (1, 5, 10)
     queries = list(results.keys())
