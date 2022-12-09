@@ -13,7 +13,11 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-# Bate na rota de search e executa a consulta pedida pelo usuario
+"""
+This function gets the results of the user search and verify if any errors have ocurred, if everything is allright the 
+application returns the data. If any anomalies were detected the application raises an error 
+@author Bruno Francisco
+"""
 @router.post("/")
 def index(kws: str = None, img: bytes = File(default=None), k: int = 5):
     try:
@@ -38,7 +42,11 @@ def index(kws: str = None, img: bytes = File(default=None), k: int = 5):
             )
         )
 
-
+"""
+This function uses the embeddings to calculate the score of the text searched in the application returning to the 
+user the required number of results, their description and their score
+@author Bruno Francisco
+"""
 def retrieve_txt(kws: str, k: int):
     query_vector = sc.load_txt_model().encode(kws).astype(sc.TEXT_EMBEDDING_TYPE).tobytes()
     # TODO: pay attention on asc and desc which may vary depending on distance metric
@@ -56,7 +64,11 @@ def retrieve_txt(kws: str, k: int):
     }
     return ret
 
-
+"""
+This is a future work to allow the application to make the search process of images. It uses the embeddings to
+calculate the score of the image searched in the application
+@author Bruno Francisco
+"""
 def retrieve_img(raw: bytes, k: int):
     image = Image.open(io.BytesIO(raw))
     embeddings = sc.encode_image(input_image=image)

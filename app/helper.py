@@ -4,7 +4,10 @@ import app.shared_context as sc
 from redis.commands.search.field import VectorField, TextField, NumericField
 from redis.commands.search.indexDefinition import IndexDefinition, IndexType
 
-# pegar o tempo das funcoes
+"""
+Support function, used to get the execution times of other functions 
+@author Bruno Francisco
+"""
 def timeit(func):
     @wraps(func)
     def timeit_wrapper(*args, **kwargs):
@@ -16,7 +19,12 @@ def timeit(func):
         return result
     return timeit_wrapper
 
-# efetivamente cria os indices
+
+"""
+Function that effectively creates the indexes which are stored at Redis Database. It uses many parameters found in 
+shared_context.py with the objective of using the already created connection with Redis.  
+@author Bruno Francisco
+"""
 @timeit
 def create_index(vector_field_name,
                  number_of_vectors,

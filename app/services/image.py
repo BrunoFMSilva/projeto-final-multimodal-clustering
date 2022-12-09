@@ -6,11 +6,17 @@ from pathlib import Path
 import app.shared_context as sc
 from app.helper import create_index
 
-
+"""
+This is a future work to allow the application to make the indexing and search process of images 
+@author Bruno Francisco
+"""
 input_path = Path(__file__).parent.parent / "input"
 images_path = Path(__file__).parent.parent / "images"
 
-
+"""
+Function that donwload the image files from a specific folder in the jpg format
+@author Bruno Francisco
+"""
 def download(image_url, list_id=None):
     img_data = r.get(image_url).content
     if not list_id:
@@ -18,7 +24,10 @@ def download(image_url, list_id=None):
     with open(f"{images_path}/image_{list_id}.jpg", "wb") as handler:
         handler.write(img_data)
 
-
+"""
+Function that donwload the image files from a specific folder in the csv file
+@author Bruno Francisco
+"""
 def main(filename="electronics_20220615_original.csv", skip=0):
     df = pd.read_csv(input_path / filename)
     print(f"dataframe: {df.shape}")
@@ -31,6 +40,12 @@ def main(filename="electronics_20220615_original.csv", skip=0):
         print(f"{idx} - image downloaded | {list_id}")
 
 
+"""
+Function that describes the parallel service that executes with the main application. The image encoder
+gets the data inserter by the user and sends it to the image model, handeling its size and converting it to a json file
+containing a vector with 768 positions per record. After that it creates the index in Redis
+@author Bruno Francisco
+"""
 def run():
     queue_id = int(sys.argv[1]) if len(sys.argv) > 1 else 0
     queue_name = f"{sc.QUEUE_IMG}_{queue_id}"
