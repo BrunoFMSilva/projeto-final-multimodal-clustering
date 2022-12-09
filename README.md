@@ -23,6 +23,6 @@ Disciplina do programa de pós-graduação do Departamento de Informática da PU
 
 ### Roteiro de Testes
 
-### Documentaçao
+### Documentação
 
 ### Conclusão
