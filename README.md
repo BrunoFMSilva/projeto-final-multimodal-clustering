@@ -29,6 +29,7 @@ A documentação está disponível [aqui](docs/Projeto_Final_Bruno_Francisco.pdf
 
 ### Conclusão
 
+-------------
 
 Para utilizar esta ferramenta  é necessário baixá-la do GitHub. Com o projeto adquirido, o primeiro passo é baixar as bibliotecas do arquivo requeriments.txt. Com essas bibliotecas instaladas deve-se abrir a pasta raiz do projeto e rodar os seguintes comandos: <br>
 - docker−compose build <br>
