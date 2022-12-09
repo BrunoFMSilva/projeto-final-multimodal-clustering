@@ -13,7 +13,7 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-
+# Bate na rota de search e executa a consulta pedida pelo usuario
 @router.post("/")
 def index(kws: str = None, img: bytes = File(default=None), k: int = 5):
     try:

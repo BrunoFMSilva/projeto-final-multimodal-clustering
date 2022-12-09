@@ -3,7 +3,7 @@ import app.shared_context as sc
 from fastapi import FastAPI
 from app.routers import indexing, search
 
-
+# Levanta aplicacao web e conecta no redis
 def get_application() -> FastAPI:
     app = FastAPI(
         title="Multimodal Clustering",

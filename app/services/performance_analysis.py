@@ -5,7 +5,7 @@ import app.shared_context as sc
 from app.helper import create_index, timeit
 from redis.commands.search.query import Query
 
-
+# faz a analise de performace
 def conv(col):
     return literal_eval(col[1:-1])
 

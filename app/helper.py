@@ -4,7 +4,7 @@ import app.shared_context as sc
 from redis.commands.search.field import VectorField, TextField, NumericField
 from redis.commands.search.indexDefinition import IndexDefinition, IndexType
 
-
+# pegar o tempo das funcoes
 def timeit(func):
     @wraps(func)
     def timeit_wrapper(*args, **kwargs):
@@ -16,7 +16,7 @@ def timeit(func):
         return result
     return timeit_wrapper
 
-
+# efetivamente cria os indices
 @timeit
 def create_index(vector_field_name,
                  number_of_vectors,

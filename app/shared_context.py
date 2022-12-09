@@ -11,7 +11,7 @@ from torchvision import transforms
 from sentence_transformers import SentenceTransformer
 
 
-# TODO: load values from .env file
+# Possui as variaveis globais do sistema - camada horizontal
 # constants
 REDIS_HOST = "redis"
 REDIS_PORT = 6379

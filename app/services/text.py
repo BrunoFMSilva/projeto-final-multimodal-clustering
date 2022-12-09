@@ -3,7 +3,10 @@ from time import sleep
 import app.shared_context as sc
 from app.helper import create_index
 
-
+# Servico paralelo que fica rodando - pega a mensagem - com o modelo de texto instanciado - faz tratamento d tamanho
+# 512 e manda pro modelo e o modelo devolve um vetor d 768 organiza json - armazena como banco d dados no redis
+# - deixa d guardar sentenca e guarda embedding - primeira passada armazena o dado no redis e a segunda cria o iindice
+# em cima do campo embedding
 def run():
     queue_id = int(sys.argv[1]) if len(sys.argv) > 1 else 0
     queue_name = f"{sc.QUEUE_TXT}_{queue_id}"

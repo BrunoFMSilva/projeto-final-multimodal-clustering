@@ -11,7 +11,7 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-
+# Joga na fila os dados carregados pelo usuario - muito rapido - nao indexa
 @router.post("/")
 def index(file: bytes = File(...), skip: int = 0):
     try:
