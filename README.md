@@ -3,6 +3,8 @@
 Disciplina do programa de pós-graduação do Departamento de Informática da PUC-Rio. <br>
 ## Multimodal Clustering
 
+A documentação está disponível [aqui](docs/Projeto_Final_Bruno_Francisco.pdf), ela apresenta os seguintes tópicos:
+
 ### Especificações do Projeto 
 - Finalidade
 - Escopo
